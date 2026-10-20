@@ -1,199 +1,615 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
     <meta charset="UTF-8">
 
     <meta
         name="viewport"
-        content="width=device-width, initial-scale=1.0,
-        maximum-scale=1.0, user-scalable=no"
-    >
+        content="width=device-width,
+        initial-scale=1.0,
+        maximum-scale=1.0,
+        user-scalable=no">
 
-    <title>WebAR Solar Panel Model</title>
+    <title>Improved WebAR Solar Panel Model</title>
+
 
     <!-- A-Frame -->
+
     <script
         src="https://aframe.io/releases/1.6.0/aframe.min.js">
     </script>
 
+
     <!-- AR.js Marker Tracking -->
+
     <script
         src="https://cdn.jsdelivr.net/npm/@ar-js-org/ar.js@3.4.7/aframe/build/aframe-ar.js">
     </script>
 
+
     <style>
+
         body {
+
             margin: 0;
             overflow: hidden;
+
             font-family: Arial, sans-serif;
+
         }
 
+
         .instruction {
+
             position: fixed;
+
             top: 10px;
             left: 50%;
+
             transform: translateX(-50%);
-            width: 90%;
+
+            width: 88%;
+            max-width: 500px;
+
             padding: 10px;
+
             color: white;
-            background: rgba(0, 0, 0, 0.65);
+            background: rgba(0, 0, 0, 0.68);
+
             border-radius: 8px;
+
             text-align: center;
+            font-size: 14px;
+
             z-index: 10;
+
         }
+
     </style>
+
 </head>
+
 
 <body>
 
+
+    <!-- User instruction -->
+
     <div class="instruction">
-        Allow camera access and point the camera at the Hiro marker.
+
+        Allow camera access and point the camera
+        at the Hiro marker.
+
     </div>
 
+
+    <!-- AR scene -->
+
     <a-scene
+
         embedded
+
         vr-mode-ui="enabled: false"
-        renderer="logarithmicDepthBuffer: true; colorManagement: true;"
+
+        renderer="
+            logarithmicDepthBuffer: true;
+            colorManagement: true;
+            physicallyCorrectLights: true;
+        "
+
         arjs="
             sourceType: webcam;
             trackingMethod: best;
             debugUIEnabled: false;
-        "
-    >
+        ">
 
-        <!-- Lighting -->
+
+        <!-- Ambient light -->
+
         <a-light
+
             type="ambient"
+
             color="#FFFFFF"
+
             intensity="1.2">
+
         </a-light>
 
+
+        <!-- Directional light -->
+
         <a-light
+
             type="directional"
+
             color="#FFFFFF"
+
             intensity="1.5"
+
             position="1 3 2">
+
         </a-light>
+
 
         <!-- Hiro marker -->
-        <a-marker preset="hiro">
+
+        <a-marker
+
+            preset="hiro"
+
+            smooth="true"
+
+            smooth-count="10"
+
+            smooth-tolerance="0.01"
+
+            smooth-threshold="2">
+
 
             <!-- Complete solar panel structure -->
+
             <a-entity
+
+                id="solarPanelStructure"
+
                 position="0 0 0"
-                scale="0.8 0.8 0.8"
+
+                rotation="0 0 0"
+
+                scale="0.45 0.45 0.45"
+
                 animation="
                     property: rotation;
+                    from: 0 0 0;
                     to: 0 360 0;
                     loop: true;
-                    dur: 12000;
+                    dur: 16000;
                     easing: linear;
-                "
-            >
+                ">
 
-                <!-- Base -->
-                <a-box
-                    position="0 0.05 0"
-                    width="2.4"
-                    height="0.1"
-                    depth="1.5"
-                    color="#555555">
-                </a-box>
 
-                <!-- Left support post -->
-                <a-box
-                    position="-0.7 0.6 0"
-                    width="0.12"
-                    height="1.1"
-                    depth="0.12"
-                    color="#B0B0B0">
-                </a-box>
+                <!-- ======================= -->
+                <!-- BASE                    -->
+                <!-- ======================= -->
 
-                <!-- Right support post -->
                 <a-box
-                    position="0.7 0.6 0"
-                    width="0.12"
-                    height="1.1"
-                    depth="0.12"
-                    color="#B0B0B0">
-                </a-box>
 
-                <!-- Solar panel frame -->
-                <a-box
-                    position="0 1.25 0"
-                    rotation="-25 0 0"
-                    width="2.2"
+                    id="base"
+
+                    position="0 0.06 0"
+
+                    width="2.8"
+
                     height="0.12"
-                    depth="1.3"
-                    color="#202020">
-                </a-box>
 
-                <!-- Blue solar panel surface -->
-                <a-box
-                    position="0 1.32 -0.03"
-                    rotation="-25 0 0"
-                    width="2.05"
-                    height="0.04"
-                    depth="1.15"
-                    color="#145DA0"
+                    depth="1.8"
+
+                    color="#50565C"
+
                     metalness="0.2"
+
+                    roughness="0.8">
+
+                </a-box>
+
+
+                <!-- Base feet -->
+
+                <a-box
+
+                    position="-1.05 0.04 0.68"
+
+                    width="0.45"
+
+                    height="0.08"
+
+                    depth="0.28"
+
+                    color="#343A40">
+
+                </a-box>
+
+
+                <a-box
+
+                    position="1.05 0.04 0.68"
+
+                    width="0.45"
+
+                    height="0.08"
+
+                    depth="0.28"
+
+                    color="#343A40">
+
+                </a-box>
+
+
+                <a-box
+
+                    position="-1.05 0.04 -0.68"
+
+                    width="0.45"
+
+                    height="0.08"
+
+                    depth="0.28"
+
+                    color="#343A40">
+
+                </a-box>
+
+
+                <a-box
+
+                    position="1.05 0.04 -0.68"
+
+                    width="0.45"
+
+                    height="0.08"
+
+                    depth="0.28"
+
+                    color="#343A40">
+
+                </a-box>
+
+
+                <!-- ======================= -->
+                <!-- VERTICAL SUPPORT POSTS  -->
+                <!-- ======================= -->
+
+                <a-box
+
+                    id="leftPost"
+
+                    position="-0.72 0.65 0"
+
+                    width="0.15"
+
+                    height="1.18"
+
+                    depth="0.15"
+
+                    color="#AEB4BA"
+
+                    metalness="0.5"
+
                     roughness="0.5">
+
                 </a-box>
 
-                <!-- Solar-cell grid lines -->
-                <a-box
-                    position="-0.67 1.35 -0.05"
-                    rotation="-25 0 0"
-                    width="0.025"
-                    height="0.02"
-                    depth="1.1"
-                    color="#FFFFFF">
-                </a-box>
 
                 <a-box
-                    position="0 1.35 -0.05"
-                    rotation="-25 0 0"
-                    width="0.025"
-                    height="0.02"
-                    depth="1.1"
-                    color="#FFFFFF">
+
+                    id="rightPost"
+
+                    position="0.72 0.65 0"
+
+                    width="0.15"
+
+                    height="1.18"
+
+                    depth="0.15"
+
+                    color="#AEB4BA"
+
+                    metalness="0.5"
+
+                    roughness="0.5">
+
                 </a-box>
 
-                <a-box
-                    position="0.67 1.35 -0.05"
-                    rotation="-25 0 0"
-                    width="0.025"
-                    height="0.02"
-                    depth="1.1"
-                    color="#FFFFFF">
-                </a-box>
+
+                <!-- ======================= -->
+                <!-- HORIZONTAL CROSS BAR    -->
+                <!-- ======================= -->
 
                 <a-box
-                    position="0 1.12 0.46"
-                    rotation="-25 0 0"
-                    width="2.0"
-                    height="0.02"
-                    depth="0.025"
-                    color="#FFFFFF">
+
+                    id="crossBar"
+
+                    position="0 1.17 0"
+
+                    width="1.75"
+
+                    height="0.14"
+
+                    depth="0.16"
+
+                    color="#8A9198"
+
+                    metalness="0.5"
+
+                    roughness="0.5">
+
                 </a-box>
 
+
+                <!-- ======================= -->
+                <!-- TILTED SUPPORT RAILS    -->
+                <!-- ======================= -->
+
                 <a-box
-                    position="0 1.58 -0.54"
+
+                    id="leftRail"
+
+                    position="-0.72 1.28 0"
+
                     rotation="-25 0 0"
-                    width="2.0"
-                    height="0.02"
-                    depth="0.025"
-                    color="#FFFFFF">
+
+                    width="0.12"
+
+                    height="0.12"
+
+                    depth="1.35"
+
+                    color="#7B8288"
+
+                    metalness="0.5">
+
                 </a-box>
+
+
+                <a-box
+
+                    id="rightRail"
+
+                    position="0.72 1.28 0"
+
+                    rotation="-25 0 0"
+
+                    width="0.12"
+
+                    height="0.12"
+
+                    depth="1.35"
+
+                    color="#7B8288"
+
+                    metalness="0.5">
+
+                </a-box>
+
+
+                <!-- ============================= -->
+                <!-- COMPLETE PANEL ASSEMBLY       -->
+                <!--                               -->
+                <!-- All panel components are      -->
+                <!-- placed inside this entity.    -->
+                <!-- Only the parent is rotated.   -->
+                <!-- ============================= -->
+
+                <a-entity
+
+                    id="panelAssembly"
+
+                    position="0 1.42 0"
+
+                    rotation="-25 0 0">
+
+
+                    <!-- Black outer frame -->
+
+                    <a-box
+
+                        id="panelFrame"
+
+                        position="0 0 0"
+
+                        width="2.35"
+
+                        height="0.14"
+
+                        depth="1.42"
+
+                        color="#181D22"
+
+                        metalness="0.5"
+
+                        roughness="0.5">
+
+                    </a-box>
+
+
+                    <!-- Blue photovoltaic surface -->
+
+                    <a-box
+
+                        id="panelSurface"
+
+                        position="0 0.085 0"
+
+                        width="2.18"
+
+                        height="0.045"
+
+                        depth="1.25"
+
+                        color="#135D96"
+
+                        metalness="0.25"
+
+                        roughness="0.45">
+
+                    </a-box>
+
+
+                    <!-- ======================= -->
+                    <!-- VERTICAL GRID LINES     -->
+                    <!-- ======================= -->
+
+                    <a-box
+
+                        position="-0.55 0.12 0"
+
+                        width="0.018"
+
+                        height="0.018"
+
+                        depth="1.18"
+
+                        color="#D7ECFF">
+
+                    </a-box>
+
+
+                    <a-box
+
+                        position="0 0.12 0"
+
+                        width="0.018"
+
+                        height="0.018"
+
+                        depth="1.18"
+
+                        color="#D7ECFF">
+
+                    </a-box>
+
+
+                    <a-box
+
+                        position="0.55 0.12 0"
+
+                        width="0.018"
+
+                        height="0.018"
+
+                        depth="1.18"
+
+                        color="#D7ECFF">
+
+                    </a-box>
+
+
+                    <!-- ======================= -->
+                    <!-- HORIZONTAL GRID LINES   -->
+                    <!-- ======================= -->
+
+                    <a-box
+
+                        position="0 0.12 -0.31"
+
+                        width="2.10"
+
+                        height="0.018"
+
+                        depth="0.018"
+
+                        color="#D7ECFF">
+
+                    </a-box>
+
+
+                    <a-box
+
+                        position="0 0.12 0.31"
+
+                        width="2.10"
+
+                        height="0.018"
+
+                        depth="0.018"
+
+                        color="#D7ECFF">
+
+                    </a-box>
+
+
+                    <!-- ======================= -->
+                    <!-- FRAME EDGE HIGHLIGHTS   -->
+                    <!-- ======================= -->
+
+                    <!-- Left frame edge -->
+
+                    <a-box
+
+                        position="-1.13 0.10 0"
+
+                        width="0.06"
+
+                        height="0.08"
+
+                        depth="1.36"
+
+                        color="#3D454D">
+
+                    </a-box>
+
+
+                    <!-- Right frame edge -->
+
+                    <a-box
+
+                        position="1.13 0.10 0"
+
+                        width="0.06"
+
+                        height="0.08"
+
+                        depth="1.36"
+
+                        color="#3D454D">
+
+                    </a-box>
+
+
+                    <!-- Front frame edge -->
+
+                    <a-box
+
+                        position="0 0.10 0.675"
+
+                        width="2.32"
+
+                        height="0.08"
+
+                        depth="0.06"
+
+                        color="#3D454D">
+
+                    </a-box>
+
+
+                    <!-- Rear frame edge -->
+
+                    <a-box
+
+                        position="0 0.10 -0.675"
+
+                        width="2.32"
+
+                        height="0.08"
+
+                        depth="0.06"
+
+                        color="#3D454D">
+
+                    </a-box>
+
+
+                </a-entity>
+
 
             </a-entity>
 
+
         </a-marker>
 
+
         <!-- AR camera -->
+
         <a-entity camera></a-entity>
+
 
     </a-scene>
 
+
 </body>
+
 </html>
